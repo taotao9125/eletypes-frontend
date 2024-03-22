@@ -444,7 +444,8 @@ export const GlobalStyles = createGlobalStyle`
     font-size: 28px;
   }
   .wordcard-word-display-field{
-    font-size: 64px;
+    font-weight: bold;
+    font-size: 120px;
     margin: 40px;
   }
   .wordcard-meaning-display-field{

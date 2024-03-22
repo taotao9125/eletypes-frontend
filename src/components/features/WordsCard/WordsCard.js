@@ -81,10 +81,15 @@ const WordsCard = ({ soundType, soundMode }) => {
 
   const [index, setIndex] = useLocalPersistState(0, "currIndex");
 
+  console.log(vocabSource, )
+
+  
+  
   const [currChapter, setCurrChapter] = useLocalPersistState(
     "a",
     "currChapter"
   );
+
 
   const [wordsDict, setWordsDict] = useState(() => {
     return wordsCardVocabGenerator(vocabSource, currChapter);

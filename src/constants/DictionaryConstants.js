@@ -1,12 +1,26 @@
 import GREWordsInterpretations from "../assets/Vocab/GREWords.json";
 import TOEFLWordsInterpretations from "../assets/Vocab/TOEFLWords.json";
 import CET6WordsInterpretations from "../assets/Vocab/CET6Words.json";
-import CET4WordsInterpretations from "../assets/Vocab/CET4Words.json"
+import CET4WordsInterpretations from "../assets/Vocab/CET4Words.json";
+
+import oxford3000Interpretations from "../assets/Vocab/ox5000words.json";
 
 const GRE_WORDS = GREWordsInterpretations;
 const TOEFL_WORDS = TOEFLWordsInterpretations;
 const CET6_WORDS = CET6WordsInterpretations;
 const CET4_WORDS = CET4WordsInterpretations;
+
+
+function resolveOxfordData(data) {
+  return data.filter(el => !!el.level3000).reduce((acc, cur, idx) => {
+    acc[idx + 1] = {
+      key: cur.text,
+      val: `${cur.n}`,
+      l: cur.level3000
+    }
+    return acc;
+  },  {})
+}
 
 const GRE_WORDS_CATALOG = {
   a: [0, 502],
@@ -124,26 +138,65 @@ const CET4_WORDS_CATALOG = {
   z: [4608, 4613],
 };
 
+
+const OX_3000 = resolveOxfordData(oxford3000Interpretations)
+
+function getLevelList(level, data) {
+  return Object.keys(data).map(key => data[key]).filter(n => n.l === level);
+}
+
+const OX_3000_WORDS = [
+  ...getLevelList('a1', OX_3000),
+  ...getLevelList('a2', OX_3000),
+  ...getLevelList('b1', OX_3000),
+  ...getLevelList('b2', OX_3000),
+  ...getLevelList('c1', OX_3000)
+].reduce((acc, cur, idx) => {
+  acc[idx] = cur;
+  return acc;
+}, {});
+
+function getCatalog(chatpter, OX_3000_WORDS) {
+  const list =  Object.keys(OX_3000_WORDS).map(key => OX_3000_WORDS[key]);
+  return [
+    list.findIndex(el => el.l === chatpter),
+    list.findLastIndex(el => el.l === chatpter)
+  ]
+}
+
+const OX_3000_WORDS_CATALOG = {
+  a: getCatalog('a1', OX_3000_WORDS),
+  b: getCatalog('a2', OX_3000_WORDS),
+  c: getCatalog('b1', OX_3000_WORDS),
+  d: getCatalog('b2', OX_3000_WORDS)
+}
+
+
 const DICTIONARY_SOURCE_CATALOG = {
   GRE: GRE_WORDS_CATALOG,
   TOEFL: TOEFL_WORDS_CATALOG,
   CET6: CET6_WORDS_CATALOG,
-  CET4: CET4_WORDS_CATALOG
+  CET4: CET4_WORDS_CATALOG,
+  OX_3000: OX_3000_WORDS_CATALOG
 };
+
 
 const VOCAB_DICTIONARIES = {
   GRE: GRE_WORDS,
   TOEFL: TOEFL_WORDS,
   CET6: CET6_WORDS,
-  CET4: CET4_WORDS
+  CET4: CET4_WORDS,
+  OX_3000: OX_3000_WORDS
 };
 
+
 const VOCAB_ORDER_OPTIONS = ["random", "alphabet"];
+
 
 export {
   GRE_WORDS,
   GRE_WORDS_CATALOG,
   DICTIONARY_SOURCE_CATALOG,
   VOCAB_ORDER_OPTIONS,
-  VOCAB_DICTIONARIES,
+  VOCAB_DICTIONARIES
 };
