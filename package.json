@@ -1,7 +1,7 @@
 {
   "name": "eletype",
   "version": "0.3.4",
-  "private": true,
+  "homepage": "/eletypes-frontend/",
   "dependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
