@@ -45,8 +45,6 @@ jobs:
         uses: actions/configure-pages@v4
       - name: Install dependencies
         run: yarn install # or pnpm install / yarn install / bun install
-      - name: build markdown
-        run: yarn auto
       - name: Build
         run: yarn build
       - name: Upload artifact
