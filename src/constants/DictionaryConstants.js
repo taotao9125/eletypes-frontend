@@ -16,7 +16,8 @@ function resolveOxfordData(data) {
     acc[idx + 1] = {
       key: cur.text,
       val: `${cur.n}`,
-      l: cur.level3000
+      l: cur.level3000,
+      y: cur.yin
     }
     return acc;
   },  {})

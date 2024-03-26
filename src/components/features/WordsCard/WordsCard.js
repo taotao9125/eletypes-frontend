@@ -229,6 +229,7 @@ const WordsCard = ({ soundType, soundMode }) => {
   };
 
   const currWord = wordsDict[index].key;
+  const yin = wordsDict[index].y || '';
   const currMeaning = wordsDict[index].val;
   const extra = currInput.slice(currWord.length, currInput.length).split("");
   const currChapterStartIndex =
@@ -372,6 +373,7 @@ const WordsCard = ({ soundType, soundMode }) => {
     }
   }
 
+
   return (
     <div className="words-card-container">
       <div className="words-card-catalog">
@@ -395,7 +397,8 @@ const WordsCard = ({ soundType, soundMode }) => {
           onKeyDown={(e) => handleKeyDown(e)}
         ></input>
         <div className="wordcard-meaning-display-field">
-          {currMeaning}
+          <span style={{color: '#aaa', fontSize: '13px'}}>{currMeaning}</span>
+          <span style={{marginLeft: '10px'}}>{yin}</span>
         </div>
         <IconButton
           aria-label="restart"
